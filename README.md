@@ -14,7 +14,7 @@ This repository provides the code and detailed instructions required to reproduc
 
 The necessary data files are too large to be hosted directly on GitHub. Please download them from Zenodo using the following link:
 
-[Download Data from Zenodo]([https://zenodo.org/records/13922930])
+[Download Data from Zenodo](https://zenodo.org/records/13922930)
 
 Once downloaded, place the data files in the `/data/` directory of this repository.
 
