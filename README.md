@@ -4,7 +4,7 @@ This repository provides the code and detailed instructions required to reproduc
 
 ## Repository Structure
 
-- `/scripts/`: Contains the R script responsible for data processing, statistical analysis, and result generation.
+- `/script/`: Contains the R script responsible for data processing, statistical analysis, and result generation.
 - `/data/`: Currently empty. Users must download the required data files separately (see instructions below).
 - `.Rmd`: The RMarkdown file used to produce the final report, incorporating code, visualizations, and explanatory content.
 
@@ -31,7 +31,7 @@ To reproduce the report, follow these steps:
 2. **Run the Analysis Script**: Execute the analysis script located in the `/scripts/` directory to preprocess the data and generate the results:
 
    ```r
-   source("scripts/analysis.R")
+   source("script/analysis.R")
    ```
 
    Note that during this phase, the script will generate under the same folder various .Robj files, each one is a ggplot2 figure used in the report.
