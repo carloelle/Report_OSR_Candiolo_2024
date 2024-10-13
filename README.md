@@ -25,8 +25,7 @@ To reproduce the report, follow these steps:
 1. **Install Necessary Packages**: Ensure all required R packages are installed. You can do this by executing the following command in R:
 
    ```r
-   install.packages(c("Matrix", "data.table", "Seurat", "harmony", "dplyr", "tidyr", "ggplot2", 
-  "reshape2", "lisi", "reticulate", "circlize", "Giotto", "ComplexHeatmap", "SeuratObject"))
+   install.packages(c("Matrix", "data.table", "Seurat", "harmony", "dplyr", "tidyr", "ggplot2","reshape2", "lisi", "reticulate", "circlize", "Giotto", "ComplexHeatmap", "SeuratObject"))
    ```
 
 2. **Run the Analysis Script**: Execute the analysis script located in the `/scripts/` directory to preprocess the data and generate the results:
