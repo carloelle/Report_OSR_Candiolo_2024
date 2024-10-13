@@ -16,7 +16,7 @@ The necessary data files are too large to be hosted directly on GitHub. Please d
 
 [Download Data from Zenodo](https://zenodo.org/records/13922930)
 
-Once downloaded, place the data files in the `/data/` directory of this repository.
+Once downloaded, place the data files in the `/data/` directory of this repository. Do not move any other file in the 
 
 ### 2. Run the Analysis
 
@@ -25,16 +25,17 @@ To reproduce the report, follow these steps:
 1. **Install Necessary Packages**: Ensure all required R packages are installed. You can do this by executing the following command in R:
 
    ```r
-   install.packages(c("ggplot2", "dplyr", "readr", "rmarkdown"))
+   install.packages(c("Matrix", "data.table", "Seurat", "harmony", "dplyr", "tidyr", "ggplot2", 
+  "reshape2", "lisi", "reticulate", "circlize", "Giotto", "ComplexHeatmap", "SeuratObject"))
    ```
 
 2. **Run the Analysis Script**: Execute the analysis script located in the `/scripts/` directory to preprocess the data and generate the results:
 
    ```r
-   source("script/analysis.R")
+   source("script/Report_OSR_Candiolo_2024.R")
    ```
 
-   Note that during this phase, the script will generate under the same folder various .Robj files, each one is a ggplot2 figure used in the report.
+   Note that during this phase, the script will generate under the same folder various .Robj files, each one is a ggplot2 figure used in the report. Some of them might be large. 
 
 3. **Render the Report**: Knit the RMarkdown file to produce the final report in your desired format (e.g., HTML, PDF). This can be done within RStudio by opening the `.Rmd` file and clicking the "Knit" button, or by running:
 
@@ -42,20 +43,9 @@ To reproduce the report, follow these steps:
    rmarkdown::render("report.Rmd")
    ```
 
-## Dependencies
-
-This project requires several R packages, including but not limited to:
-
-- **ggplot2**: Used for data visualization.
-- **dplyr**: Utilized for data manipulation.
-- **readr**: For reading data files.
-- **rmarkdown**: For rendering the final report.
-
-Please ensure these packages are installed prior to executing the analysis.
-
 ## Citation
 
-If you utilize this repository or the associated data in your research, please cite the collaborative work between OSR TIGET and IRCC Candiolo. Additionally, cite the Zenodo data record linked above.
+If you utilize this repository or the associated data in your research, please cite this collaborative work between OSR TIGET and IRCC Candiolo. Additionally, cite the Zenodo data record linked above.
 
 ## Contact
 
