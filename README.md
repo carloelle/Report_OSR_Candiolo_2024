@@ -16,7 +16,7 @@ The necessary data files are too large to be hosted directly on GitHub. Please d
 
 [Download Data from Zenodo](https://zenodo.org/records/13922930)
 
-Once downloaded, place the data files in the `/data/` directory of this repository. Do not move any other file in the 
+Once downloaded, place the data files in the `/data/` directory of this repository. Do not move any other file in the same directory.
 
 ### 2. Run the Analysis
 
