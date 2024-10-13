@@ -1,0 +1,170 @@
+---
+title: "Mapping CAFs subtypes convergence using public available CRC spatial transcriptomics"
+author: "Carlo Leonardi"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    citation_package: natbib
+    includes:
+      in_header: preamble.tex
+  html_document: 
+    toc: true  
+bibliography: bibliography.bib
+---
+
+
+
+
+
+
+\begin{center}
+\section*{Abstract}
+\end{center}
+Cancer-associated fibroblasts (CAFs) constitute a heterogeneous population of cells within the tumor microenvironment, playing pivotal roles in promoting cancer progression. In this study, we investigated the convergence of CAF subtypes across colorectal cancer (CRC) patients using publicly available single-cell and spatial transcriptomics data. Our objective was to assess whether CAF signatures derived from bulk RNA sequencing of patient-derived xenografts (PDX) could be applied to primary CRC tumors. To achieve this, we integrated single-cell RNA sequencing (scRNA-seq) data from two major CRC cohorts and conducted a meta-analysis involving more than 12 spatial transcriptomics datasets. We identified distinct CAF subtypes, including MF1, iCAF, and mCAF, and characterized their spatial distribution and co-localization within the tumor microenvironment. Our findings indicate that CAF subtypes converge into two principal cellular states: matrix-remodeling fibroblasts, defined by MF1, iCAF, and mCAF signatures, and a distinct state characterized by vCAF. This convergence suggests conserved functional roles for these CAF subtypes in supporting tumor growth. Furthermore, our analysis establishes a robust framework for evaluating spatial transcriptomics data to explore CAF subtype interactions in CRC. These insights may inform the development of targeted therapies aimed at disrupting CAF-mediated tumor support.
+
+\newpage
+## Introduction
+Cancer-associated fibroblasts (CAFs) are a heterogeneous population of activated fibroblasts found within the tumor microenvironment [@xing_cancer_2010]. CAFs have many distinguishable features in terms of genomic expression, though a major constant is their supportive role in the establishment of the tumour micro-environment [@attieh_hallmarks_2016] (TME). Activated fibroblasts in the context of cancer support tumour growth shaping the tumor micro-environment via a hierarchy of cell-cell interactions [@mayer_tumor_2023],  as suggested by IL1R1+ cancer-associated fibroblasts which have been shown to drive tumour development and immunosuppression in colorectal cancer [@koncina_il1r1_2023]. Even though immune-modulant properties of CAFs is an on-going field of research [@tsoumakidou_advent_2023], major attention has been put on CAFs that do interact with the tumour itself via cell-cell signalling or a variety of cell-mediated effectors [@cao_intercellular_2024]. Recently in colorectal cancer (CRC) research, Lee et al. [@lee_lineage-dependent_2020] published a large cohort of Korean and Belgian CRC single cell data, which defined a first comprehensive atlas at single cell resolution of CRC and CAF cell states. Additionally, also Pelka et al. [@pelka_spatially_2021] defined a first original comprehensive study of CAFs and CRC tumor cell states. CAFs have been classified using both single-cell sequencing and spatial proteomics adopting a functional approach [@cords_cancer-associated_2023], such as expressing interferon-related genes for ifnCAF or broad inflammatory-related signal for iCAF. While a functional classification may represent a comprehensive effort, single-cell sequencing only captures instantaneous cellular states within the broader framework of conserved cellular states — such as those defined among tumor-associated macrophages (TAMs) [@coulton_using_2024] — which are yet to be fully characterized. An effort has been made to study the intrinsic properties of colorectal cancer (CRC) cells using patient-derived xenograft (PDX) models [@isella_selective_2017]. Recent efforts, including ongoing studies within our group, have aimed to define cancer subtypes that attract a stromal-rich component, while others do not. Preliminary findings suggest that this distinction may correlate with tumour growth rate. Stromal-rich and stromal-poor tumours appear to represent conserved phenotypes, indicating that cancer-associated fibroblasts (CAFs) may converge toward similar states in these contexts. Stromal-rich and stromal-poor tumours represent conserved phenotypes, suggesting that cancer-associated fibroblasts (CAFs) in this context may converge toward similar states. Although this is a compelling hypothesis, there is still a lack of translational bioinformatics efforts to translate PDX-derived hypotheses to CRC patients. Specifically, it remains uncertain whether publicly available spatial transcriptomics data can confirm the convergence of CAF subtypes in primary CRC tumors. Despite the availability of signatures derived from bulk PDX models, a comprehensive analysis using public CRC single-cell RNA sequencing (scRNAseq) and spatial transcriptomics (ST) data has not yet been performed. In this report, we developed an inter-patient analysis of more than 12 publicly available ST datasets of primary CRC tumors, focusing on the convergent fate of MF1, iCAF, and mCAF cancer-associated fibroblasts.
+
+\newpage
+## Results
+
+Patient-derived xenografts (PDX) provide a unique platform to explore cancer-specific programs, offering insights into cancer cell-intrinsic features that are relevant to patients. In previous studies using mouse-derived PDX models, we identified bulk RNA-seq signatures associated with intrinsic cancer programs, known as CRIS signatures, as well as specific subtypes of matrix-remodeling CAFs. With the increasing availability of colorectal cancer (CRC) single-cell RNA-seq (scRNA-seq) atlases, our objective was to determine whether these bulk RNA-seq signatures could be reliably applied to scRNA-seq data, despite the inherent differences in depth and capture between these technologies.
+To investigate this, we integrated a CRC scRNA-seq atlas from the Belgian and Korean cohorts published by Lee et al., using Harmony for batch correction. We then tested the ability of bulk-derived signatures to capture the single-cell heterogeneity (Figure 1A). To validate the integration, we computed the Local Inverse Simpson’s Index (LISI) on the cohort, verifying higher scores in cancer-related cells. Figure 1B presents a heatmap of LISI scores across cell subtypes, with higher values indicating effective integration between batches. As expected, epithelial/cancer cell types, including CMS1, CMS2, CMS3, and CMS4, exhibited the highest LISI scores, while other cell types, except Tuft cells, contributed minimally. This observation aligns with the common understanding that cancer cells are highly specific to individual patients and cohorts, necessitating correction.
+In addition to integration measures, Figure 1A shows a dot plot that links statistically significant relative gene expression with absolute gene expression for bulk-derived signatures. The CRIS signatures, representing cancer-related programs, are derived from bulk RNA-seq, while CAF-related programs, such as mCAF and iCAF, are derived from both scRNA-seq data (e.g., MF1) and bulk RNA-seq data (e.g., mrCAF). Figure 1A illustrates that the size of the dots, representing the percentage of statistically positive cells based on PAGE values (relative gene expression), captures both the heterogeneity of single cells—such as the higher plasticity and cross-signature positivity seen in cancer cells—and true biological signals, like the positivity of myofibroblasts for CAF signatures. The color and legend of the dots in Figure 1A reflect the specific gene expression associated with each cell type, calculated as the module score of the signatures normalized by the expression of random genes, demonstrating specificity for particular cell types. Higher module expression values are aligned with the identity of the cells expressing the module. For instance, vCAF and myCAF are associated with pericytes, while mrCAF and MF1 are linked to myofibroblasts.
+Figures 1A and 1B demonstrate that the signatures, derived from both single-cell and bulk RNA sequencing data, capture single-cell heterogeneity and exhibit specificity for cell subtypes within scRNA-seq atlases. This specificity enables their use in contexts beyond the single-cell level, such as next-generation sequencing (NGS)-based spatial transcriptomics data. To this end, we conducted a comprehensive reanalysis of publicly available Spatial Transcriptomics (ST) Visium datasets, including datasets that met the following criteria: (i) representation of primary colorectal cancer (CRC) tumors only, (ii) inclusion of at least 30% of spots with stromal populations, and (iii) use of the 10X Visium platform. These criteria were essential to ensure the inclusion of datasets relevant for a meaningful reanalysis of publicly available data.
+The 10X Visium spatial transcriptomics platform captures tissue regions approximately 50 µm in size, which are expected to contain between 10 and 30 cells, depending on cellular density. Each tumor slice may contain spots enriched for specific cell types defined by scRNA-seq, underscoring the importance of matching both ST and scRNA-seq data per patient when possible. In our framework, we focused on identifying specific cancer-associated fibroblast (CAF) subtypes in ST, leading us to perform a deconvolution of the ST data using a Bayesian approach. Deconvolution was performed using matched scRNA-seq data when available, while for most slices, unmatched deconvolution was performed using data from Lee et al.'s atlas-level resource.
+To conduct an analysis specifically focused on CAF subtypes, we aimed to select spots that were comparable across different patients. To achieve this, we estimated the absolute number of fibroblasts per spot using Cell2Location [@kleshchevnikov_cell2location_2022] to infer the absolute abundance of fibroblasts (or related subtypes, considering stromal and myofibroblasts together based on Lee et al.). The percentages of fibroblasts were then calculated to contextualize the cellular composition. By plotting the percentage of fibroblasts alongside their absolute numbers, we defined inter-patient thresholds: the 85th quantile of the absolute values and >20% for fibroblast percentage.
+Datasets were filtered to conduct a fibroblast-specific analysis, selecting patients that were stromal-rich and fibroblast-abundant. It is evident that some datasets had a greater number of fibroblast-enriched spots than others. For instance, Figure 2 shows a filtered dataset with a higher number of fibroblast-enriched spots. Figure 2A-D illustrates the enrichment conducted with PAGE for different fibroblast subtype signatures, while Figure 2E shows a classification of the primary tumor into stromal and tumor regions. Figure 2 indicates that: (i) there is spatial segregation between CAF subtypes, with a cluster indicating MF1, iCAF, and mCAF, and a separate cluster for vCAF; (ii) all CAFs are correctly localized to the stromal region. 
+Given the construction of our pipeline (see Materials and Methods), we ensured that only fibroblast-enriched spots were captured per patient, allowing further spatial dissection by analyzing the relative gene expression signal provided by our signatures. Since each dataset contained a different number of spots, we accounted for these differences when analyzing co-localization patterns between CAF subtypes. Figures 3 and S2 show a weighted spatial correlation matrix representing all considered datasets. Figure 3 was constructed starting from dataset-specific correlation matrices of PAGE scores, aggregated by Z-transformation scores, weighted by the number of spots per dataset, and clustered hierarchically. Spots were also filtered to retain only those statistically significant after permutation testing.
+Hierarchical clustering in Figure 3 shows a clear segregation of spots positive for myCAF, iCAF, MF1, and mCAF. MF3 and vCAF also form a strong spatial cluster, while dCAF, MF4, and cCAF show no correlation or even anti-correlation with other CAF subtypes. Notably, even when more signatures were considered (Figure S2), repeated patterns were observed: a positive correlation among MF1, mCAF, and mrCAF, and another cluster of vCAF and MF3. These results suggest that CAF subtypes spatially organize into distinct regions with different functional roles, reinforcing the concept of subtype convergence. Correlation matrices are informative in revealing expected relationships between different CAF signals, but they do not fully demonstrate spatial co-localization.
+To address this, Figure 4 presents a spatial overlap analysis combining statistically enriched scores from all the datasets. Figures 4 and 5 represent a detailed statistical analysis that began with selecting spots statistically significant for our signatures. Spots positive for our signatures were tested for overlap using hypergeometric testing, producing a p-value matrix for each dataset. Figure 4, derived from more than 12 samples, aggregates p-values using hierarchical clustering to show a clear spatial segregation of a region positive for MF1, mCAF, and iCAF. Positivity for myCAF is also present, but it appears to be a shared signature for different spatial clusters. Figures 5 and 6 extend the analysis shown in Figures 3 and 4 by incorporating additional signatures. Figure 5 highlights a clear convergence of CAFs toward the "matrix remodeling" phenotype, as demonstrated by the hierarchical clustering that reveals regions positive for MF1, iCAF, mCAF, and our signature, mrCAF. The spatial overlap shows that spots are positive for these signatures, irrespective of their origin. Notably, the signatures work consistently across spots without segregation based on the study of origin.
+These results are consistent across additional analyses, indicating that CAF subtypes occupy specific spatial regions that exhibit distinct gene expression patterns rather than random distribution. This supports the hypothesis that CAF subtypes spatially organize into regions expressing MF1, mCAF, and iCAF signatures.
+
+\newpage
+## Discussion
+Cancer-associated fibroblasts (CAFs) are a well-established area of focus in cancer research, often likened to the response seen in an open wound. It is evident that fibroblasts collaborate with the tumor microenvironment to promote tumor growth. Shared molecular mechanisms, such as sustained inflammation driven by interleukin proteins, may occur across various cancer-associated cells, including immune cells like tumor-associated macrophages (TAMs) and non-immune cells such as CAFs. While immune suppression facilitating tumor growth is often regulated by immune cells, CAFs play an essential role by remodeling the tissue niche, thereby supporting tumor progression.
+Extensive research has characterized functional states of immune cells, including TAMs and T cells, using single-cell resolution in various published atlases. More recently, the heterogeneity of CAFs has also been explored at the single-cell level, leading to a comprehensive but sometimes redundant classification. To fully understand CAF functionality, cells must be examined within their tissue context, and this study aims to contextualize CAF subtypes in primary colorectal cancer (CRC) tumors. Through detailed inter-patient analysis, we demonstrated how diverse CAF states converge into a few major cellular states, suggesting a consistent function within the tissue across different patients.
+Our findings show that signatures derived from bulk RNA sequencing and single-cell atlases capture the common CAF states previously identified. Rather than indicating further differentiation of CAFs—which could lead to excessive clustering at the single-cell level—we interpret our results as a convergence of distinct CAF subtypes into two main cellular states: (i) one involved in remodeling the extracellular tumor matrix, marked by mCAF, MF1, and iCAF signatures, and (ii) another represented by vCAF and MF3, potentially fulfilling different tumor-supportive roles. This convergence is particularly evident when examining data from xenograft models, which identify CRIS cancer subtypes capable of significant matrix remodeling. The mrCAF signature, derived from bulk RNA-seq of PDX models, effectively captures the convergence of mCAF, MF1, and iCAF subtypes, further supporting this interpretation.
+A key implication of these findings is the potential to target CAF-tumor interactions therapeutically, with the goal of interrupting the "open wound" response and contributing to cancer eradication. Patient-derived xenograft (PDX) models provide critical insights into cancer cell-intrinsic mechanisms that could be directly translated to patient treatments. Meta-analyses of publicly available primary tumor datasets can accelerate this translational research. While we provide a detailed portrait of CAFs within CRC patients, therapeutic strategies targeting CAFs remain a promising yet underdeveloped field of research. Stratifying patients based on CAF-tumor interactions could facilitate the development of targeted therapies aimed at disrupting these interactions, thereby inhibiting the cancer-supportive functions of fibroblasts.
+While our study presents a robust statistical framework for the meta-analysis of spatial transcriptomics datasets—potentially applicable for evaluating any form of spatial convergence in ST—there are limitations to be acknowledged. Notably, we observed a convergence of CAF subtypes towards a matrix-remodeling state, consistent with our experimental model. However, we also observed convergence of MF3 and vCAF subtypes, whose strength of convergence is comparable to that of MF1, iCAF, and mCAF, but lacks a clear biological hypothesis to explain this pattern. This phenomenon warrants further investigation to determine its biological relevance.
+Furthermore, while our analysis is useful for identifying patients enriched for specific CAF subtypes or cancer states, it does not provide a mechanistic understanding of the functional role of each CAF subtype within the tumour micro-environment. To achieve this, further analyses based on cell-cell interactions will be required. As a future direction, we recommend investigating the specific cell-cell mechanisms involved in interactions between mrCAFs and cancer cells, using both spatial transcriptomics and single-cell analyses. Understanding ligand-receptor interactions at the single-cell level could provide a foundation for elucidating the mechanisms behind tumour engraftment within the fibrotic capsule. However, it is crucial that these analyses be contextualized within the tissue environment, for which spatial transcriptomics will be an invaluable tool.
+
+\newpage
+## Figures
+
+```{r Figure1, echo=FALSE, fig.align='center', fig.pos = 'H', fig.width=12, fig.height=11, fig.cap="Signatures derived from single cell and bulk RNAseq define specificity and transcriptional heterogeneity in atlas-level analysis. A, dotplot where size is representative of statistical strength of relative gene expression, while color represents the intensity of the gene expression program. On the rows, signatures for cancer-related (CRIS, EMR) or fibroblasts-related (mCAF, mrCAF, MF1, iCAF, MF2, cCAF, myCAF, vCAF). B, heatmap showing the mean LISI score across the two cohorts on the rows and by cell subtypes on the columns."}
+load("~/Report_OSR_Candiolo_2024/script/p1.Robj")  
+load("~/Report_OSR_Candiolo_2024/script/p2.Robj")
+library(ggplot2)
+library(cowplot)
+
+# Combine the two plots
+combined_plot <- plot_grid(
+  p2, p1,
+  labels = c("A", "B"),
+  ncol = 2,
+  align = 'hv',
+  label_size = 14,
+  rel_widths = c(1.3, 1)
+)
+
+# Display the combined plot
+print(combined_plot)
+```
+
+```{r Figure2, echo=FALSE, fig.pos = 'H', fig.align='center', fig.width=15, fig.height=15, fig.cap="Spatial localisation patterns of MF1, iCAF, mCAF, vCAF, and Tissue Classification. From left to right, top to bottom: spatial visualization of PAGE enrichment scores in fibroblast-enriched spots for MF1 (A), iCAF (B), mCAF (C), and vCAF (D) on the GSM7058757\\_C2 dataset, which contains the highest proportion (35.73\\%) of fibroblast-enriched spots. Figure E shows tissue classification for GSM7058757\\_C2. Tissue classification was performed based on the Cell2Locations' proportions of \"Tumoral\" for Tumoral and the sum of \"Fibroblasts\" and \"Endothelial\" for Stromal. The MF1, iCAF, and mCAF signatures show convergent expression within the same spatial spots, while vCAF is used as a negative control, displaying a distinct spatial pattern. As expected, all fibroblast-enriched spots are classified as stromal."}
+load("~/Report_OSR_Candiolo_2024/script/p3.Robj")  
+load("~/Report_OSR_Candiolo_2024/script/p4.Robj")
+load("~/Report_OSR_Candiolo_2024/script/p5.Robj")
+load("~/Report_OSR_Candiolo_2024/script/p6.Robj")
+load("~/Report_OSR_Candiolo_2024/script/p7.Robj")
+library(ggplot2)
+library(cowplot)
+library(grid)
+
+combined_plot <- plot_grid(
+  p3, p4, p5, p6, p7,
+  labels = c("A", "B", "C", "D", "E"),
+  ncol = 3,
+  align = 'hv',
+  label_size = 16,  # Adjust the label size for readability
+  rel_widths = c(1, 1),  # Control relative widths if necessary
+  rel_heights = c(1, 1, 1)  # Adjust for the layout if you want unequal heights
+)
+
+rotated_combined_plot <- function(plot) {
+  g <- ggplotGrob(plot)
+  rotated_g <- grid::grid.newpage()
+  grid::pushViewport(viewport(angle = 90))
+  grid::grid.draw(g)
+}
+
+rotated_combined_plot(combined_plot)
+
+```
+
+```{r Figure3, echo=FALSE, fig.pos = 'H', fig.align='center', fig.width=10, fig.height=10, fig.cap="Spatial Weighted Correlation Matrix for Statistically Significant Co-localisation of CAFs Subtype Enrichment Scores. The heatmap represents a spatial weighted correlation matrix based on twelve 10X Visium datasets from GSE225857 and Zenodo (ID 7551712). Fibroblast-specific spots were selected using Cell2Location deconvolution, followed by calculating PAGE enrichment scores for CAF-specific signatures. Correlation matrices were generated for each dataset, aggregated using Fisher's z-transformation, and clustered hierarchically. The resulting matrix identifies two major clusters of spatially correlated fibroblasts: MF3/vCAF and iCAF/MF1/mCAF, while other CAF subtypes display weak or inverse correlations."}
+load("~/Report_OSR_Candiolo_2024/script/p8.Robj")
+print(p8)
+
+```
+
+```{r Figure4, echo=FALSE, fig.pos = 'H', fig.align='center', fig.width=10, fig.height=10, fig.cap="Overlap of CAF Subtypes Shown by Combined Statistically Significant Enrichment Scores. PAGE enrichment scores were computed on fibroblast-specific datasets, and a permutation test was conducted for each enrichment score. The overlap in spots selected as statistically significant was assessed using a hypergeometric test. P-values were calculated for each dataset and combined using Fisher’s Method. The values are represented as overlap enrichment scores, denoted by -log10(p-value). Euclidean distance and a hierarchical clustering based on average linkage were computed to the symmetric matrix. The matrix here is colored for -log10(p-value), with a scale that range from 0 to 200. The figure shows two main fibroblasts’ pattern of colocalisation: one pattern is exclusively positive for MF1, mCAF, iCAF, while the other one is exclusive positive for MF3, vCAF, MF2. myCAF is positive for both spatial clusters."}
+load("~/Report_OSR_Candiolo_2024/script/p9.Robj")
+print(p9)
+
+```
+
+\newpage
+## Supplementary Figures
+
+```{r Figure Supplementary 1, echo=FALSE, fig.pos = 'H', fig.align='center', fig.width=10, fig.height=10, fig.cap="Overlap of CAF Subtypes Shown by Combined Statistically Significant Enrichment Scores, including signatures from Cords et al. PAGE enrichment scores were computed on fibroblast-specific datasets, and a permutation test was conducted for each enrichment score. The overlap in spots selected as statistically significant was assessed using a hypergeometric test. P-values were calculated for each dataset and combined using Fisher’s Method. The values are represented as overlap enrichment scores, denoted by -log(p-value). An agglomerative hierarchical clustering was applied to the symmetric matrix. A color scale was applied, with values ranging from 0 to 700 "}
+load("~/Report_OSR_Candiolo_2024/script/p11.Robj")
+print(p11)
+
+```
+
+```{r Figure Supplementary 2, echo=FALSE, fig.pos = 'H', fig.align='center', fig.width=10, fig.height=10, fig.cap="Spatial Weighted Correlation Matrix for Statistically Significant Co-localisation of CAFs Subtype Enrichment Scores, including signatures from Cords. et al. The heatmap represents a spatial weighted correlation matrix based on twelve 10X Visium datasets from GSE225857 and Zenodo (ID 7551712). Fibroblast-specific spots were selected using Cell2Location deconvolution, followed by calculating PAGE enrichment scores for CAF-specific signatures. Correlation matrices were generated for each dataset, aggregated using Fisher's z-transformation, and clustered hierarchically. The heatmap shows also repeated signatures, including also from Cords et al. Nat Comms 2023. Even with more signatures, the resulting matrix identifies two major clusters of spatially correlated fibroblasts: MF3/vCAF and iCAF/MF1/mCAF, while other CAF subtypes display weak or inverse correlations."}
+load("~/Report_OSR_Candiolo_2024/script/p10.Robj")
+print(p10)
+
+```
+\newpage
+## Materials and Methods
+
+
+**Single cell data collection and integration**  
+Datasets for the Korean and the Belgian cohort were downloaded from the original study of Lee et al., Seurat package was used to visualize data and perform a first normalisation. Variables features and PCA were computed. PCAs were fed into Harmony to perform a batch correction, using “Cohort” as a covariate. UMAP was computed on the harmony embeddings. Signatures were used convolving original experiments and public data. PAGE was computed using Giotto package and a permutation test was performed. AddModuleScore() function by Seurat was used to compute the Module score for each signature, normalised by 30 random genes. LISI scores were computed on the integrated Seurat object to test the integration effort across cohorts.  
+
+
+**Data collection and datasets preparation**  
+Visium 10x datasets were downloaded from GEO (GSE225857) and Zenodo (10.5281/zenodo.7551712). For the GEO dataset, paired scRNAseq data were also downloaded. All datasets were initially analyzed for a preliminary inspection of quality control (QC). For the scRNAseq data, broad categories representing cell type assignments were created on top of existing annotations using a grouping strategy. Cell2Location (version 0.1.3) was used to deconvolve the paired GEO dataset, with the 95th percentile of the posterior distribution used to determine the absolute number of each cell type per spot. Subsequently, the percentage for each cell type was calculated. In the Valdolivas et al. cohort, Stromal.1, Stromal.2, Stromal.3, and Myofibroblasts were grouped together as an overall fibroblast category, while CMS1, CMS2, and CMS3 were grouped together as a tumor category. To select fibroblast-enriched datasets, spots were selected with at least 20% of the desired cell type and in the 85th quantile of the distribution in both cohorts. This intersection allowed us to define which patients were fibroblast-enriched.  
+
+
+**Overlap of CAFs subtypes using combined statistically significant enrichment scores**  
+Fibroblast-enriched datasets were normalized and scaled, and the count matrix was passed to the Giotto package (v3.3) to perform a Parametric Enrichment Analysis of Gene sets (PAGE). Signatures for CAF subtypes were collected using a mixture of public and original experiments. A permutation test was conducted on each enrichment score. Datasets were selected if permutation of the PAGE values was feasible. A matrix was constructed to count the occurrences of statistically significant p-values for each gene set. The overlap of statistically significant p-values for each gene set was assessed using a hypergeometric test conducted for each patient. Patient-specific p-values were combined using Fisher’s method with the following formula:
+$$
+\chi^2 = -2 \sum_{i=1}^{k} \ln(p_i)
+$$
+Finally, combined p-values were transformed in enrichment scores using -log(p-value). Euclidean distances were computed across the matrix and an agglomerative algorithm (method=”mcquitty” in hclust() ) was used to construct the final matrix.  
+
+
+**Spatial weighted correlation matrix construction**  
+Fibroblast-enriched datasets were normalized and scaled, and the count matrix was passed to the Giotto package (v3.3) to perform a Parametric Enrichment Analysis of Gene sets (PAGE). Signatures for CAF subtypes were collected using a mixture of public and original experiments. Datasets were selected if permutation of the PAGE values was feasible. A correlation matrix was derived for each dataset. Fisher’s z-transformation was applied to each matrix, and the sum of z-values was computed, correcting for the size of each dataset. An inverse z-transformation was then applied to the weighted matrix, followed by hierarchical clustering on the rows and columns.  
+
+
+**Dataset selection**  
+Datasets enriched with fibroblasts were included for further analysis only if they contained an adequate number of spots to enable permutation testing. Datasets lacking sufficient spots were excluded from the analysis.  
+
+
+## Supporting Code  
+All the code used for this analysis, including the statistical analysis and the newly developed methodology for ST is available at https://github.com/carloelle/Report_OSR_Candiolo_2024. The repository contains detailed instruction for the reproducibility of this report.
+
+
+## Acknowledgments  
+As part of my PhD, I would like to thank the IRCC Candiolo for providing a supportive environment during this journey into CAF-related biology.
+
+
+
+
