@@ -54,7 +54,3 @@ For questions or issues, please contact:
 - **Email**: carlo.leonardi\@unito.it (PhD) / carlo.leonardi\@ircc.it (Hospital) / c.leonardi95\@protonmail.com (Personal)
 
 If you encounter any problems or have suggestions for improvement, please open an issue on this GitHub repository.
-
-## License
-
-This repository is made available under the [MIT License](LICENSE). This license allows for free use, modification, and distribution of the code.
