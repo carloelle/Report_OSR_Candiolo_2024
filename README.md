@@ -1,12 +1,12 @@
-# Report on the Collaboration between OSR TIGET and IRCC Candiolo
+# Mapping CAFs subtypes convergence using public available CRC spatial transcriptomics
 
 This repository provides the code and detailed instructions required to reproduce the RMarkdown report for the collaborative research between OSR TIGET and IRCC Candiolo.
 
 ## Repository Structure
 
-- `/script/`: Contains the R script responsible for data processing, statistical analysis, and result generation.
-- `/data/`: Currently empty. Users must download the required data files separately (see instructions below).
-- `.Rmd`: The RMarkdown file used to produce the final report, incorporating code, visualizations, and explanatory content.
+- `/script/`: Contains the R script responsible for data processing, statistical analysis, and result generation. Also contains the RMarkdown file used to produce the final report, incorporating code, visualizations, and explanatory content. 
+- `/data/`: Currently with two small files. Users must download the required data files separately (see instructions below).
+- `/report/`: Quick access to the PDF version of the Report.
 
 ## Instructions
 
