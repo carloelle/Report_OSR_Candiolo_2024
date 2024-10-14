@@ -149,7 +149,8 @@ save(p1,file = 'p1.Robj')
 
 
 library(reticulate)
-use_python('/home/carlo/.local/share/r-miniconda/envs/giotto_env/bin/python', required = TRUE)
+#Giotto will require a miniconda / python version, if you wanna specify it before launching it, it will be useful
+#use_python('/home/carlo/.local/share/r-miniconda/envs/giotto_env/bin/python', required = TRUE)
 load("~/Report_OSR_Candiolo_2024/data/signfinal.Robj")
 
 
@@ -866,7 +867,7 @@ sign$tCAF_Cords=NULL
 sign$mrCAF=NULL
 
 library(reticulate)
-use_python('/home/carlo/.local/share/r-miniconda/envs/giotto_env/bin/python', required = TRUE)
+#use_python('/home/carlo/.local/share/r-miniconda/envs/giotto_env/bin/python', required = TRUE)
 
 library(circlize)
 library(data.table)
